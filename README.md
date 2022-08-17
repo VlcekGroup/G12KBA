@@ -9,3 +9,9 @@ Future implementations will include
 -Reconstruction of off diagonal components of Green's function
 -GW self energies
 -More general Hamiltonians(Longer range couplings, different driving fields)
+
+Compilation:
+
+Source mkl libraries e.g ``source /opt/intel/parallel\_studio\_xe\_2019/psxevars.sh"
+Compile with `` g++ $<$filename$>$.cpp -fopenmp -lmkl\_intel\_lp64 -lmkl\_gnu\_thread -lpthread -lm -ldl -O3 -o $<$output\_file$>$"
+Run with ./$<$output\_file$>$
