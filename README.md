@@ -12,6 +12,7 @@ Future implementations will include
 
 Compilation:
 
-Source mkl libraries e.g ``source /opt/intel/parallel\_studio\_xe\_2019/psxevars.sh"
-Compile with `` g++ $<$filename$>$.cpp -fopenmp -lmkl\_intel\_lp64 -lmkl\_gnu\_thread -lpthread -lm -ldl -O3 -o $<$output\_file$>$"
-Run with ./$<$output\_file$>$
+Source mkl libraries e.g "source /opt/intel/parallel_studio_xe_2019/psxevars.sh"
+
+Compile with "g++ <filename>.cpp -fopenmp -lmkl_intel_lp64 -lmkl_gnu_thread -lpthread -lm -ldl -O3 -o <output_file>"
+Run with ./<output_file>
