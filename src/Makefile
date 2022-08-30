@@ -7,7 +7,7 @@ APP := G1_G2_main
 All: $(APP)
 
 CC=CC
-#DEFS=-DNOTHREADS=1
+DEFS=-DNOTHREADS=1
 #DEBUG=-g -O0 
 OPT=-O3 -fast
 CFLAGS= $(DEBUG) $(OPT) $(DEFS) -fopenmp 
