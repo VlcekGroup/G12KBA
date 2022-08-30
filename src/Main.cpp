@@ -94,7 +94,8 @@ class G1_G2_time_step
 			vector<complex<double>> G1_tmp(Ns*Ns*Nb*Nb);
 			vector<complex<double>> h2G2_comm(Ns2*Ns2*Nb2*Nb2);
 			vector<complex<double>> psi(Ns2*Ns2*Nb2*Nb2);
-    			vector<complex<double>> G2_tmp(Ns2*Ns2*Nb2*Nb2);
+    	vector<complex<double>> G2_tmp(Ns2*Ns2*Nb2*Nb2);
+
 
 			while(t<tmax)
 			{
@@ -108,22 +109,22 @@ class G1_G2_time_step
 						num_dens+= G1[(i+a*Ns)*Nb*Ns + i + a*Ns].imag();
 					}
 				}
-				n1.push_back(num_dens);
 				vector<complex<double>> RK_result_G1(Ns*Ns*Nb*Nb);
 				vector<complex<double>> RK_result_G2(Ns2*Ns2*Nb2*Nb2);
 				vector<complex<double>> K1(Ns*Ns*Nb*Nb);
 				vector<complex<double>> K2(Ns2*Ns2*Nb2*Nb2);
+
+				n1.push_back(num_dens);
 //				float temp_t = t;
 //				auto wall_t_start = chrono::steady_clock::now();
 				for(int k = 0; k<4; ++k)
 				{
-					vector<complex<double>> h1(Ns*Ns*Nb*Nb);
+		 			vector<complex<double>> h1(Ns*Ns*Nb*Nb);
 					if(k == 1 or k == 2)
 				    	{
 				        	dt = dt_fixed/2;
 				        	w = 2;
 				    	}
-
 				   	else
 				    	{
 				        	dt = dt_fixed;
@@ -134,27 +135,33 @@ class G1_G2_time_step
 				    	{
 				        	G1_tmp[i] = complex<double>(G1[i]) + K1[i]*dt;
 				    	}
-
+              //#pragma omp parallel for
 				    	for(int i =0; i<Ns2*Ns2*Nb2*Nb2;++i)
 				    	{
 				        	G2_tmp[i] = complex<double>(G2[i]) + K2[i]*dt;
-				   	}
-
+				   		}
 					h_HF_no_pulse(h1,G1_tmp,Ns,Nb,U,t1,t2,epsilon);
-
+#if NOTHREADS
+					hG_commutator(G1_tmp,h1,h1G1_comm);
+					collision_int(I,G2_tmp,Ns,Nb,U);
+					h2G2_commutator(G2_tmp,h1,h2G2_comm,Ns,Nb);
+					Psi(psi,G1_tmp,Ns,Nb);
+					G1_step(h1G1_comm,I,K1,RK_result_G1,w,Ns,Nb);
+					G2_step(h2G2_comm,psi,K2,RK_result_G2,w,Ns,Nb,U);
+#else					
 					thread th1(hG_commutator,ref(G1_tmp),ref(h1),ref(h1G1_comm));
-                                        thread th2(collision_int,ref(I),ref(G2_tmp),Ns,Nb,U);
-                                        thread th3(h2G2_commutator,ref(G2_tmp),ref(h1),ref(h2G2_comm),Ns,Nb);
-                        		thread th4(Psi,ref(psi),ref(G1_tmp),Ns,Nb);
-                        		th1.join();
-                        		th2.join();
+					thread th2(collision_int,ref(I),ref(G2_tmp),Ns,Nb,U);
+					thread th3(h2G2_commutator,ref(G2_tmp),ref(h1),ref(h2G2_comm),Ns,Nb);
+					thread th4(Psi,ref(psi),ref(G1_tmp),Ns,Nb);
+					th1.join();
+					th2.join();
 					th3.join();
-                                        th4.join();
-
+					th4.join();
 					thread th5(G1_step,ref(h1G1_comm),ref(I),ref(K1),ref(RK_result_G1),w,Ns,Nb);
 					thread th6(G2_step,ref(h2G2_comm),ref(psi),ref(K2),ref(RK_result_G2),w,Ns,Nb,U);
 					th5.join();
-				    	th6.join();
+					th6.join();
+#endif
 		//			temp_t = t + dt;
 				}
 //				auto end = chrono::steady_clock::now();

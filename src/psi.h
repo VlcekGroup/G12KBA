@@ -19,6 +19,7 @@ void Psi(vector<complex<double>> &psi, vector<complex<double>> &G1, int Ns, int 
 	int Ns2 = int(pow(Ns,2));
 	int Nb2 = int(pow(Nb,2));
 	complex<double> im = {0,1};
+  #pragma omp parallel for collapse(8)
 	for(int i = 0; i < Ns; ++i)
 	{
 	        for(int j = 0; j< Ns; ++j)
