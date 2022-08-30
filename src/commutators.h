@@ -39,7 +39,7 @@ void h2G2_commutator(vector<complex<double>> &G2, vector<complex<double>> &h1, v
 
 #define IDX_4D(x,y,z,t)  ((x) + (y)*Ns + ((z) + (t)*Ns)*Nb*Ns)
 #define IDX_8D(x,y,z,t,m,n,q,w) ((x) + (y)*Ns + ((z) + (t)*Nb)*Ns2 + ((m)+(n)*Ns)*Ns2*Nb2 + ((q) + (w)*Nb)*Ns2*Ns2*Nb2) 
-//  #pragma omp parallel for collapse(8)	
+  #pragma omp parallel for collapse(8)	
   for(int b = 0; b< Nb; ++b) {
      for(int a = 0; a < Nb; ++a) {
     		for(int j = 0; j < Ns; ++j) {
