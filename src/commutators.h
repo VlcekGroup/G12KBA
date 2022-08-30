@@ -39,7 +39,9 @@ void h2G2_commutator(vector<complex<double>> &G2, vector<complex<double>> &h1, v
 
 #define IDX_4D(x,y,z,t)  ((x) + (y)*Ns + ((z) + (t)*Ns)*Nb*Ns)
 #define IDX_8D(x,y,z,t,m,n,q,w) ((x) + (y)*Ns + ((z) + (t)*Nb)*Ns2 + ((m)+(n)*Ns)*Ns2*Nb2 + ((q) + (w)*Nb)*Ns2*Ns2*Nb2) 
-  #pragma omp parallel for collapse(8)	
+#if NOTHREADS
+  #pragma omp parallel for collapse(8)
+#endif	
   for(int b = 0; b< Nb; ++b) {
      for(int a = 0; a < Nb; ++a) {
     		for(int j = 0; j < Ns; ++j) {
@@ -48,20 +50,10 @@ void h2G2_commutator(vector<complex<double>> &G2, vector<complex<double>> &h1, v
               		for(int g = 0; g<Nb; ++g) {
             		    for(int l = 0; l < Ns;++l) {
         							for(int k = 0; k < Ns; ++k) {
-//													  int idx1 = k + Ns*l + (g + d*Nb)*Ns2 + (i+j*Ns)*Ns2*Nb2 + (a + b*Nb)*Ns2*Ns2*Nb2;
 													  int idx1 = IDX_8D(k,l,g,d,i,j,a,b);
                             comm[idx1] = 0.0;
                             for(int r = 0; r<Nb; ++r) {
                                for(int p = 0; p<Ns; ++p) {
-//																 int idx2 = p + r*Ns + (j + b*Ns)*Nb*Ns;
-//																 int idx3 = p + r*Ns + (i + a*Ns)*Nb*Ns;
-//																 int idx4 = l + d*Ns + (p + r*Ns)*Nb*Ns;
-//																 int idx5 = k + g*Ns + (p + r*Ns)*Nb*Ns;
-//                                 int idx6 = k + l*Ns + (g + d*Nb)*Ns2 + (i+p*Ns)*Ns2*Nb2 + (a + r*Nb)*Ns2*Ns2*Nb2;
-//																 int idx7 = k + l*Ns + (g + d*Nb)*Ns2 + (p+j*Ns)*Ns2*Nb2 + (r + b*Nb)*Ns2*Ns2*Nb2;
-//																 int idx8 = k + p*Ns + (g + r*Nb)*Ns2 + (i+j*Ns)*Ns2*Nb2 + (a + b*Nb)*Ns2*Ns2*Nb2;
-//																 int idx9 = p + l*Ns + (r + d*Nb)*Ns2 + (i+j*Ns)*Ns2*Nb2 + (a + b*Nb)*Ns2*Ns2*Nb2; 
-	
 																 int idx2 = IDX_4D(p,r,j,b);
 																 int idx3 = IDX_4D(p,r,i,a);
 																 int idx4 = IDX_4D(l,d,p,r);
