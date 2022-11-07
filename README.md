@@ -31,3 +31,7 @@ Future implementations will include
 - Reconstruction of off diagonal components of Green's function
 - More general Hamiltonians(different driving fields)
 - Functions for calculating more quantities from G1 and G2(spectrum, energies, etc)
+
+ # Acknowledgments:
+ 
+ This material is based upon work supported by the U.S. Department of Energy, Office of Science, Office of Advanced Scientific Computing Research and Office of Basic Energy Sciences, Scientific Discovery through Advanced Computing (SciDAC) program under Award Number DE-SC0022198
