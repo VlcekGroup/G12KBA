@@ -26,7 +26,7 @@ Alternatively run cmd ./run.sh
 Code outputs the full one particle Green's function along the entire calculated trajectory as well as the dipole to .txt file.  the two particle Green's function is also readily produced from the code.
 
 # Additional Notes
-Future implementations will include 
+## Future Versions: 
 
 - Reconstruction of off diagonal components of Green's function
 - More general Hamiltonians(different driving fields)
