@@ -1,4 +1,4 @@
-# G1-G2-Scheme
+# G12KBA
 G1-G2 scheme for the HF-GKBA
 
 c++ code which implements the G1-G2 scheme for the Hubbard type hamiltonian with multiple orbitals/spins per site.  Interband couplings are allowed in this implementation. The lack of interband/interspin transiton in the standard Hubbard model allows
