@@ -8,9 +8,9 @@ This implementation allows for correlated initial states to be prepared from the
 
 
 # Required packages:
-MKL Lapack is currently used for matrix operations however cblas can easily be subsituted
-The code is optimized for parallel execution using openMP
+MKL Lapack is used for matrix operations however cblas can easily be subsituted
 
+Optimized with openMP for parallel execution
 # Compilation and Execution:
 
 Source mkl libraries e.g "source /opt/intel/parallel_studio_xe_2019/psxevars.sh"
