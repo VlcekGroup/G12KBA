@@ -1,17 +1,17 @@
 # G12KBA
 G1-G2 scheme for the HF-GKBA
 
-Overview:
+# Overview:
 c++ code which implements the G1-G2 scheme for the propagation of of the equal time non-equilibrium Green's function (NEGF).  The method implemented is based off the following paper https://journals.aps.org/prb/abstract/10.1103/PhysRevB.101.245101. This code uses the GW self-energy and allows to the propagation of the equal time NEGF for Hubbard like models with multiple orbitals per site and long range interactions.  
 
 This implementation allows for correlated initial states to be prepared from the non-interacting ground state of the Hamiltonian through Adiabtatic switching. Currently driving from equilibrium is carried out via quenching(rapidly changing the onsite energy of certain sites), other out of equilibrium preperations can be implemented by editing HF.h. 
 
 
-Required packages:
+# Required packages:
 MKL Lapack is currently used for matrix operations however cblas can easily be subsituted
 The code is optimized for parallel execution using openMP
 
-Compilation and execution:
+# Compilation and execution:
 
 Source mkl libraries e.g "source /opt/intel/parallel_studio_xe_2019/psxevars.sh"
 
@@ -28,6 +28,6 @@ Code outputs the full one particle Green's function along the entire calculated 
 
 Future implementations will include 
 
--Reconstruction of off diagonal components of Green's function
--More general Hamiltonians(different driving fields)
--Functions for calculating more quantities from G1 and G2(spectrum, energies, etc)
+- Reconstruction of off diagonal components of Green's function
+- More general Hamiltonians(different driving fields)
+- Functions for calculating more quantities from G1 and G2(spectrum, energies, etc)
