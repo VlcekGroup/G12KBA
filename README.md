@@ -11,7 +11,7 @@ This implementation allows for correlated initial states to be prepared from the
 MKL Lapack is currently used for matrix operations however cblas can easily be subsituted
 The code is optimized for parallel execution using openMP
 
-# Compilation and execution:
+# Compilation and Execution:
 
 Source mkl libraries e.g "source /opt/intel/parallel_studio_xe_2019/psxevars.sh"
 
@@ -22,10 +22,10 @@ Run with ./<output_file>
  
 Alternatively run cmd ./run.sh
  
-Output:
+# Output:
 Code outputs the full one particle Green's function along the entire calculated trajectory as well as the dipole to .txt file.  the two particle Green's function is also readily produced from the code.
 
-
+# Additional Notes
 Future implementations will include 
 
 - Reconstruction of off diagonal components of Green's function
