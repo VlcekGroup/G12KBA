@@ -1,3 +1,18 @@
+!                     
+!                     
+!    The routine(s) in this file are a part of the  
+!                      G12KBA0.1                
+!    suite, developed 2022, and copyrighted    
+!    to the authors: Cian Reeves, Vojtech Vlcek and Khaled Ibrahim,
+!    at the University of California, Santa Barbara.
+!                                                   
+!                                                   
+!   If you use or modify any part of this routine   
+!   the header should be kept and unmodified.          
+!                                                   
+!                                                   
+!
+
 #include <vector>
 #include <complex>
 using namespace std;
