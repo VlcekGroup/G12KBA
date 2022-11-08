@@ -1,10 +1,10 @@
 # G12KBA
-G1-G2 scheme for the HF-GKBA
+HF-GKBA code with efficient time-linear formulation employing one- and two-body Green's functions
 
 # Overview:
-c++ code which implements the G1-G2 scheme for the propagation of of the equal time non-equilibrium Green's function (NEGF).  The method implemented is based off the following paper https://journals.aps.org/prb/abstract/10.1103/PhysRevB.101.245101. This code uses the GW self-energy and allows to the propagation of the equal time NEGF for Hubbard like models with multiple orbitals per site and long range interactions.  
+Efficient and scalable c++ code, optimized for HW operated by the National Energy Research Scientific Computing Center, implements the propagation of the equal-time non-equilibrium one- and two-body Green's function (NEGF).  Part of the methodology uses the "G1-G2" scheme presented in https://journals.aps.org/prb/abstract/10.1103/PhysRevB.101.245101. The code prepares the stationary state via adiabatic switching procedure, employs the GW self-energy, and propagates the equal time NEGF for lattice like models with multiple orbitals per site and long range interactions.  
 
-This implementation allows for correlated initial states to be prepared from the non-interacting ground state of the Hamiltonian through Adiabtatic switching. Currently driving from equilibrium is carried out via quenching(rapidly changing the onsite energy of certain sites), other out of equilibrium preperations can be implemented by editing HF.h. 
+This implementation allows for correlated initial states to be prepared from the non-interacting ground state of the Hamiltonian; the driving from equilibrium is carried out via quenching (rapidly changing the onsite energy of certain sites), other out of equilibrium preperations can be implemented by editing HF.h. 
 
 
 # Required packages:
