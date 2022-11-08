@@ -13,7 +13,7 @@ MKL Lapack is used for matrix operations however cblas can easily be subsituted
 Optimized with openMP for parallel execution
 # Compilation and Execution:
 
-Source mkl libraries e.g "source /opt/intel/parallel_studio_xe_2019/psxevars.sh"
+Source mkl libraries ie "source /path/to/mkl.sh"
 
 Compile with "g++ <filename>.cpp -fopenmp -lmkl_intel_lp64 -lmkl_gnu_thread -lpthread -lm -ldl -lmkl_core -O3 -o <output_file>"
 or run make command
