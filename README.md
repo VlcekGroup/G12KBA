@@ -7,10 +7,12 @@ Efficient and scalable c++ code, optimized for HW operated by the National Energ
 This implementation allows for correlated initial states to be prepared from the non-interacting ground state of the Hamiltonian; the driving from equilibrium is carried out via quenching (rapidly changing the onsite energy of certain sites), other out of equilibrium preperations can be implemented by editing HF.h. 
 
 
-# Required packages:
+# Required packages & files:
 MKL Lapack is used for matrix operations however cblas can easily be subsituted
 
 Optimized with openMP for parallel execution
+
+input file called "input" must be included in same directory as main.cpp.  If not included default values will be assigned to variables.  sample input is included.
 # Compilation and Execution:
 
 Source mkl libraries ie "source /path/to/mkl.sh"
