@@ -30,7 +30,7 @@ Code outputs the full one particle Green's function along the entire calculated 
 
 # Additional Notes
 ## Input Parameters:
-- HF = true/false, determines whether HF or full HF-GKBA calculation will be performed(default=false)
+- HF = true/false, determines whether HF or full HF-GKBA calculation will be performed
 - EHM true/false, determines if there are long range interactions or onsite interactions only
 - t1 = real number, intersite hopping strength
 - t2 = real number, interband hopping strength
