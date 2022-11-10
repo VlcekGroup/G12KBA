@@ -27,7 +27,29 @@ Alternatively run cmd ./run.sh
 # Output:
 Code outputs the full one particle Green's function along the entire calculated trajectory as well as the dipole to .txt file.  the two particle Green's function is also readily produced from the code.
 
+
 # Additional Notes
+## Input Parameters:
+- HF = true/false, determines whether HF or full HF-GKBA calculation will be performed(default=false)
+- EHM true/false, determines if there are long range interactions or onsite interactions only
+- t1 = real number, intersite hopping strength
+- t2 = real number, interband hopping strength
+- U = real number, onsite two-body interaction strength
+- time_steps = positive integer, number of time steps to be taken by RK stepper
+- dt = positive real number, step size for RK solver
+- quench_strength = real number, magnitude of system quench
+- Ns = positive integer, number of sites in the chain
+- Nq = positive integer, number of contiguous sites to be quenched counting from the first
+- Nb = positive integer, number of orbitals per site
+- q_type = "full","pulse","none", type of quench on system.  full lasts for all time, quench has finite time width
+- AS_rate = positive real number, rate at which interaction is turned on
+- AS_midpoint = positive real number, time at which AS function = .5
+- quench_rate = positive real number, rate at which quench is turned on
+- quench_on_midpoint = positive real number, time at which quench .5*quench_strength and is  increasing
+- quench_off_midpoint = positive real number, time at which quench .5*quench_strength and is  decreasing
+## Spin symmetry:
+Spin symmetry is assumed so only one spin species is time evolved
+
 ## Future Versions: 
 
 - Reconstruction of off diagonal components of Green's function
