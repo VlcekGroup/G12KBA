@@ -2,7 +2,13 @@
 HF-GKBA code with efficient time-linear formulation employing one- and two-body Green's functions
 
 # Overview:
-Efficient and scalable c++ code, optimized for HW operated by the National Energy Research Scientific Computing Center, implements the propagation of the equal-time non-equilibrium one- and two-body Green's function (NEGF).  Part of the methodology uses the "G1-G2" scheme presented in https://journals.aps.org/prb/abstract/10.1103/PhysRevB.101.245101. The code prepares the stationary state via adiabatic switching procedure, employs the GW self-energy, and propagates the equal time NEGF for lattice like models with multiple orbitals per site and long range interactions.  
+Efficient and scalable c++ code, optimized for HW operated by the National Energy Research Scientific Computing Center, implements the propagation of the equal-time non-equilibrium one- and two-body Green's function (NEGF).  
+
+The implementation follows the description provided in C. Reeves, J. Yin, Y. Zhu, K. Ibrahim, C. Yang, V. Vlcek - "Dynamic Mode Decomposition for Extrapolating Non-equilibrium Green’s Functions Dynamics" (https://scidac.ucsb.edu/sites/default/files/sitefiles/Papers/Vlcek_arXiv_GKBA_DMD.pdf).  
+
+Any publication resulting from using this code should cite the above reference.
+
+Part of the methodology uses the "G1-G2" scheme presented in https://journals.aps.org/prb/abstract/10.1103/PhysRevB.101.245101. The code prepares the stationary state via adiabatic switching procedure, employs the GW self-energy, and propagates the equal time NEGF for lattice like models with multiple orbitals per site and long range interactions.  
 
 This implementation allows for correlated initial states to be prepared from the non-interacting ground state of the Hamiltonian; the driving from equilibrium is carried out via quenching (rapidly changing the onsite energy of certain sites), other out of equilibrium preperations can be implemented by editing HF.h. 
 
