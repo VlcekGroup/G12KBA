@@ -175,10 +175,10 @@ int Adiabatic_switching(vector<complex<double>> &G1x, vector<complex<double>> &G
             th_collision_int.join();
             th_h2xxG2xxxx_comm.join();
             th_h2xyG2xyxy_comm.join();
-            th_psi_xxxx.join()
-            th_psi_xyxy.join()
-            th_pi_xxxx.join()
-            th_pi_xyxy.join()
+            th_psi_xxxx.join();
+            th_psi_xyxy.join();
+            th_pi_xxxx.join();
+            th_pi_xyxy.join();
 
             thread th_G1x_step(G1_step,ref(h1xG1x_comm),ref(Ix),ref(K1u),ref(RK_result_G1x),w,Ns,Nb);
 
