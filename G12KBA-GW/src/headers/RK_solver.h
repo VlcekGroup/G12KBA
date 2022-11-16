@@ -105,7 +105,7 @@ int RK4(vector<complex<double>> &G1x, vector<complex<double>> &G2xxxx,vector<com
         }
         if(abs(num_dens)>3 || isnan(num_dens)){
             auto end_fail = chrono::steady_clock::now();
-            cout<<"ERROR: Unphysical Number Density on site 1:"<<num_dens<<" elapsed time:"<< chrono::duration<double>(end_fail - start).count()<< " sec \n";"\n";
+            cout<<"ERROR: Unphysical Number Density on site 1:"<<num_dens<<" elapsed time:"<< chrono::duration<double>(end_fail - start).count()<< " sec \n";
             return 1;
         }
 
@@ -137,18 +137,18 @@ int RK4(vector<complex<double>> &G1x, vector<complex<double>> &G2xxxx,vector<com
             for(int i = 0; i < Ns2*Ns2*Nb2*Nb2; ++i){
                 G2xxxx_tmp[i] = G2xxxx[i] + K2xxxx[i]*dt;
                 G2xyxy_tmp[i] = G2xyxy[i] + K2xyxy[i]*dt;
-           }
-  	if(t_temp<50){
+            }
+            if(t_temp<50){
 	                h_HFx_quench(h1x,G1x_tmp,G1x_tmp,Ns,Nb,U,t1,t2,0*fermi(t_temp,quench_on_midpoint,quench_rate)*quench_strength,epsilon,V,0);
-}
-else{     
-            if(q_type=="full"){
-                h_HFx_quench(h1x,G1x_tmp,G1x_tmp,Ns,Nb,U,t1,t2,fermi(t_temp,quench_on_midpoint,quench_rate)*quench_strength,epsilon,V,Nq);
             }
-            if(q_type=="pulse"){
-                h_HFx_quench(h1x,G1x_tmp,G1x_tmp,Ns,Nb,U,t1,t2,(fermi(t_temp,quench_on_midpoint,quench_rate)*(1-fermi(t_temp,quench_off_midpoint,quench_rate)))*quench_strength,epsilon,V,Nq);
+            else{
+                if(q_type=="full"){
+                    h_HFx_quench(h1x,G1x_tmp,G1x_tmp,Ns,Nb,U,t1,t2,fermi(t_temp,quench_on_midpoint,quench_rate)*quench_strength,epsilon,V,Nq);
+                }
+                if(q_type=="pulse"){
+                    h_HFx_quench(h1x,G1x_tmp,G1x_tmp,Ns,Nb,U,t1,t2,(fermi(t_temp,quench_on_midpoint,quench_rate)*(1-fermi(t_temp,quench_off_midpoint,quench_rate)))*quench_strength,epsilon,V,Nq);
+                }
             }
-     }  
 #if NOTHREADS
             hG_commutator(G1x_tmp,h1x,h1xG1x_comm);
             if(U!=0 && HF == false){
@@ -170,30 +170,30 @@ else{
 #else
             thread th_G1x_comm(hG_commutator,ref(G1x_tmp),ref(h1x),ref(h1xG1x_comm));
 
-            thread th_collision_int_u(collision_int,ref(Ix),ref(G2xyxy_tmp),ref(G2xxxx_tmp),Ns,Nb,U,ref(V));
+            thread th_collision_int(collision_int,ref(Ix),ref(G2xyxy_tmp),ref(G2xxxx_tmp),Ns,Nb,U,ref(V));
 
             thread th_h2xxG2xxxx_comm(h2xyG2xyxy_commutator,ref(G2xxxx_tmp),ref(h1x),ref(h1x),ref(h2xxG2xxxx_comm),Ns,Nb);
             thread th_h2xyG2xyxy_comm(h2xyG2xyxy_commutator,ref(G2xyxy_tmp),ref(h1x),ref(h1x),ref(h2xyG2xyxy_comm),Ns,Nb);
 
-            thread th_psi_xxxx(Psi_xxxx,ref(psi_xxxx),ref(G1x_tmp),U,Ns,Nb,ref(V));
-            thread th_psi_xxxx(Psi_xyxy,ref(psi_xyxy),ref(G1x_tmp),ref(G1x_tmp),U,Ns,Nb,ref(V));
+            thread th_psi_xxxx(Psi_xxxx,ref(psi_xxxx),ref(G1x_tmp),Ns,Nb,U,ref(V));
+            thread th_psi_xyxy(Psi_xyxy,ref(psi_xyxy),ref(G1x_tmp),Ns,Nb,U,ref(V));
 
             thread th_pi_xxxx(Pi_xyxy,ref(pi_xxxx),ref(G1x_tmp),ref(G2xyxy_tmp),ref(G2xxxx_tmp),U,Ns,Nb,ref(V));
             thread th_pi_xyxy(Pi_xyxy,ref(pi_xyxy),ref(G1x_tmp),ref(G2xxxx_tmp),ref(G2xyxy_tmp),U,Ns,Nb,ref(V));
 
             th_G1x_comm.join();
-            th_collision_int_u.join();
+            th_collision_int.join();
             th_h2xxG2xxxx_comm.join();
             th_h2xyG2xyxy_comm.join();
-            th_psi_xxxx.join()
-            th_psi_xyxy.join()
-            th_pi_xxxx.join()
-            th_pi_xyxy.join()
+            th_psi_xxxx.join();
+            th_psi_xyxy.join();
+            th_pi_xxxx.join();
+            th_pi_xyxy.join();
 
-            thread th_G1x_step(G1_step,ref(h1xG1x_comm),ref(Ix),ref(K1u),ref(RK_result_G1x),w,Ns,Nb);
+            thread th_G1x_step(G1_step,ref(h1xG1x_comm),ref(Ix),ref(K1x),ref(RK_result_G1x),w,Ns,Nb);
 
-            thread th_G2xxxx_step(G2_step,ref(h2xxG2xxxx_comm),ref(psi_xxxx),ref(pi),ref(K2_xxxx),ref(RK_result_G2xxxx),w,Ns,Nb);
-            thread th_G2xyxy_step(G2_step,ref(h2xyG2xyxy_comm),ref(psi_xyxy),ref(pi),ref(K2_xyxy),ref(RK_result_G2xyxy),w,Ns,Nb);
+            thread th_G2xxxx_step(G2_step,ref(h2xxG2xxxx_comm),ref(psi_xxxx),ref(pi_xxxx),ref(K2xxxx),ref(RK_result_G2xxxx),w,Ns,Nb);
+            thread th_G2xyxy_step(G2_step,ref(h2xyG2xyxy_comm),ref(psi_xyxy),ref(pi_xyxy),ref(K2xyxy),ref(RK_result_G2xyxy),w,Ns,Nb);
 
             th_G1x_step.join();
             th_G2xxxx_step.join();
