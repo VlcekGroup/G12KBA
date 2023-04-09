@@ -77,6 +77,7 @@ void make_G0(vector<complex<double>> &G1u, int Ns, int Nb,int p_number,double U,
 
 void init_G_test(vector<complex<double>> &G1u, int Ns, int Nb)
 {
+	\\Puts all particles to first half of chain
     for(int i = 0; i < int(Ns/2); ++i){
         for(int a = 0; a < int(Nb); ++a){
             G1u[(i+a*Ns)*Nb*Ns + i + a*Ns] = im;
