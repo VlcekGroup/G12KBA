@@ -61,7 +61,7 @@ void h_HFx_quench(vector<complex<double>> &h, vector<complex<double>> &G1x, vect
 
     for(int i = 0; i < Ns; ++i){
         for(int a = 0; a < Nb; ++a){
-            h[((i)+a*Ns)*Nb*Ns + (i+a*Ns)] += 2*pow(-1,i);
+//             h[((i)+a*Ns)*Nb*Ns + (i+a*Ns)] += 2*pow(-1,i);
             h[((i)+a*Ns)*Nb*Ns + (i+a*Ns)] += epsilon[a];
             if(i<quench_extent){
                 h[((i)+a*Ns)*Nb*Ns + (i+a*Ns)] += w;
