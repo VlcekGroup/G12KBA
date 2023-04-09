@@ -23,36 +23,36 @@
 #include <complex>
 using namespace std;
 
-void h_HFx(vector<complex<double>> &h, vector<complex<double>> &G1x, vector<complex<double>> G1y, int Ns, int Nb, double U, double t1, double t2,vector<double> epsilon)
-{
-        //Function that updates the Hartree-Fock Hamiltonian
-    complex<double> im = {0,1};
-    for(int i = 0; i < Ns; ++i){
-        for(int a = 0; a < Nb; ++a){
-            h[(i + a*Ns)*Nb*Ns + (i + a*Ns)] = epsilon[a];
-		if(i < Ns-1){
-                h[((i+1)+a*Ns)*Nb*Ns + (i+a*Ns)] += -t1;
-                h[(i+a*Ns)*Nb*Ns + ((i+1)+a*Ns)] += -t1;
-            }
-            if(a < Nb-1){
-                h[(i+a*Ns)*Ns*Nb + (i + (a+1)*Ns)] = - t2;
-                h[(i+(a+1)*Ns)*Ns*Nb + (i + a*Ns)] = - t2;
-            }
-            h[(i +a*Ns)*Nb*Ns + (i+a*Ns)] += -im*U*G1y[(i +a*Ns)*Nb*Ns + (i+a*Ns)];
+// void h_HFx(vector<complex<double>> &h, vector<complex<double>> &G1x, vector<complex<double>> G1y, int Ns, int Nb, double U, double t1, double t2,vector<double> epsilon)
+// {
+//         //Function that updates the Hartree-Fock Hamiltonian
+//     complex<double> im = {0,1};
+//     for(int i = 0; i < Ns; ++i){
+//         for(int a = 0; a < Nb; ++a){
+//             h[(i + a*Ns)*Nb*Ns + (i + a*Ns)] = epsilon[a];
+// 		if(i < Ns-1){
+//                 h[((i+1)+a*Ns)*Nb*Ns + (i+a*Ns)] += -t1;
+//                 h[(i+a*Ns)*Nb*Ns + ((i+1)+a*Ns)] += -t1;
+//             }
+//             if(a < Nb-1){
+//                 h[(i+a*Ns)*Ns*Nb + (i + (a+1)*Ns)] = - t2;
+//                 h[(i+(a+1)*Ns)*Ns*Nb + (i + a*Ns)] = - t2;
+//             }
+//             h[(i +a*Ns)*Nb*Ns + (i+a*Ns)] += -im*U*G1y[(i +a*Ns)*Nb*Ns + (i+a*Ns)];
             
-            for(int g = 0; g < Nb; ++g){
-                if(g!=a){
-                    h[(i +a*Ns)*Nb*Ns + (i+a*Ns)] += -im*U*G1x[(i+g*Ns)*Ns*Nb + i + g*Ns];
-                    h[(i +a*Ns)*Nb*Ns + (i+a*Ns)] += -im*U*G1y[(i+g*Ns)*Ns*Nb + i + g*Ns];
+//             for(int g = 0; g < Nb; ++g){
+//                 if(g!=a){
+//                     h[(i +a*Ns)*Nb*Ns + (i+a*Ns)] += -im*U*G1x[(i+g*Ns)*Ns*Nb + i + g*Ns];
+//                     h[(i +a*Ns)*Nb*Ns + (i+a*Ns)] += -im*U*G1y[(i+g*Ns)*Ns*Nb + i + g*Ns];
 
-                }
-            }
-            for(int b = 0; b < Nb; ++b){
-                h[(i +a*Ns)*Nb*Ns + (i+b*Ns)] += im*U*kron_delta_bar(a,b)*G1x[(i+b*Ns)*Ns*Nb + i + a*Ns];
-            }
-        }
-    }
-}
+//                 }
+//             }
+//             for(int b = 0; b < Nb; ++b){
+//                 h[(i +a*Ns)*Nb*Ns + (i+b*Ns)] += im*U*kron_delta_bar(a,b)*G1x[(i+b*Ns)*Ns*Nb + i + a*Ns];
+//             }
+//         }
+//     }
+// }
 
 void h_HFx_quench(vector<complex<double>> &h, vector<complex<double>> &G1x, vector<complex<double>> G1y, int Ns, int Nb, double U, double t1, double t2,double w, vector<double> &epsilon, vector<double> &V,int quench_extent)
 {
